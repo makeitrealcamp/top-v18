@@ -1,15 +1,24 @@
 # Programa Top v18 -  Tiempo Completo
 
 ## Mentores 👩🏻‍🏫👨🏼‍🏫
-- [Nombre del mentor](profiles/mentor-principal.md)
-- Mentor 2
-- Mentor 3
+- [Gustavo Morales](https://github.com/gmoralesc)
+- [David R Zuluaga](https://github.com/davidrzuluaga)
+- Nataliya Ershova
 
 ## Estudiantes 👩🏻‍💻🧑🏼‍💻
-- Estudiante 1
-- Estudiante 2
-- Estudiante 3
-- ...
+- [Augusto Forero](https://github.com/augfor)
+- [Benjamin Honorio](https://github.com/benjaminhonorio)
+- [Cesar Rivas](https://github.com/rivascesar86)
+- [Iris Monteza](https://github.com/IrisMonteza)
+- [Jerson Zuñiga-Coayla](https://github.com/jersonzc)
+- [Jorge Quintero](https://github.com/Jorgeosky)
+- [Jose Omar Herrera](https://github.com/featlast/featlast)
+- [Juan Carlos Moreno Banda](https://github.com/JuCaMoBa)
+- [Juan Diego Carranza Vega](https://github.com/jcarranzav1)
+- [Juan David Vargas](https://github.com/juandavc12)
+- [Michael Sanabria](https://github.com/michaeldevelopment)
+- [Paola Castillo](https://github.com/paocastg)
+- [Pool Petter Hijuela Florian](https://github.com/popehiflo)
 
 ## Como es un dia de estudio durante el programa TOP?
 
