@@ -6,6 +6,7 @@
 - Nataliya Ershova
 
 ## Estudiantes 👩🏻‍💻🧑🏼‍💻
+- [Alex Villanueva](https://github.com/x314)
 - [Augusto Forero](https://github.com/augfor)
 - [Benjamin Honorio](https://github.com/benjaminhonorio)
 - [Cesar Rivas](https://github.com/rivascesar86)
