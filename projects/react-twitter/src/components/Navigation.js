@@ -6,15 +6,17 @@ export default function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand>
-          <Link to="/">React Twitter</Link>
-        </Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          React Twitter
+        </Link>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#">Sign Up</Nav.Link>
-            <Nav.Link>
-              <Link to="/signin">Sign In</Link>
+            <Nav.Link as={Link} to="/signup">
+              Sign Up
+            </Nav.Link>
+            <Nav.Link as={Link} to="/signin">
+              Sign In
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
