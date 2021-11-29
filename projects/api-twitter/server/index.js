@@ -1,4 +1,5 @@
 const express = require('express');
+const api = require('./api/v1');
 
 const app = express();
 
@@ -6,6 +7,9 @@ app.use((req, res, next) => {
   console.log(req.url);
   next();
 });
+
+app.use('/api', api);
+app.use('/api/1', api);
 
 app.use((req, res, next) => {
   const message = 'Error. Route Not Found';
