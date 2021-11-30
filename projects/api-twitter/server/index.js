@@ -1,16 +1,20 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const api = require('./api/v1');
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log(req.url);
-  next();
-});
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.use('/api', api);
 app.use('/api/1', api);
 
+// catch all
 app.use((req, res, next) => {
   const message = 'Error. Route Not Found';
   const statusCode = 404;
@@ -21,6 +25,7 @@ app.use((req, res, next) => {
   });
 });
 
+// error
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = '' } = err;
 
