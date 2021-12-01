@@ -1,3 +1,4 @@
+const { paginationParams } = require('../../../utils');
 const Model = require('./model');
 
 exports.id = async (req, res, next) => {
@@ -23,10 +24,26 @@ exports.id = async (req, res, next) => {
 };
 
 exports.all = async (req, res, next) => {
+  const { query } = req;
+  const { limit, skip, page } = paginationParams(query);
+
+  const docs = Model.find({}).skip(skip).limit(limit);
+  const all = Model.countDocuments();
+
   try {
-    const data = await Model.find({}).exec();
+    const response = await Promise.all([docs.exec(), all.exec()]);
+    const [data, total] = response;
+    const pages = Math.ceil(total / limit);
+
     res.json({
       data,
+      meta: {
+        limit,
+        skip,
+        total,
+        page,
+        pages,
+      },
     });
   } catch (error) {
     next(error);
