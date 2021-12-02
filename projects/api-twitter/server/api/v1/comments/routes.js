@@ -1,6 +1,5 @@
 const express = require('express');
 const controller = require('./controller');
-const tweetsRouter = require('../tweets/routes');
 
 const router = express.Router();
 
@@ -23,7 +22,5 @@ router
   .put(controller.update)
   .patch(controller.update)
   .delete(controller.delete);
-
-router.use('/:user/tweets', tweetsRouter);
 
 module.exports = router;

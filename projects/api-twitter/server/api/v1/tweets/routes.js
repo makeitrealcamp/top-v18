@@ -1,7 +1,9 @@
 const express = require('express');
 const controller = require('./controller');
 
-const router = express.Router();
+const router = express.Router({
+  mergeParams: true,
+});
 
 /*
  * /api/tweets      GET    - Get All
@@ -12,9 +14,12 @@ const router = express.Router();
  *
  */
 
-router.route('/').get(controller.all).post(controller.create);
+router
+  .route('/')
+  .get(controller.parentId, controller.all)
+  .post(controller.parentId, controller.create);
 
-router.param('id', controller.id);
+router.param('id', controller.parentId, controller.id);
 
 router
   .route('/:id')

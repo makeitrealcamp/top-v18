@@ -1,42 +1,16 @@
 const {
-  filterByNested,
   paginationParams,
   sortParams,
   sortTransform,
 } = require('../../../utils');
-const { Model, fields, references } = require('./model');
-const { Model: User } = require('../users/model');
-
-const referencesNames = Object.getOwnPropertyNames(references);
-
-exports.parentId = async (req, res, next) => {
-  const { params = {} } = req;
-  const { user = '' } = params;
-
-  if (user) {
-    const data = await User.findById(user).exec();
-    if (data) {
-      next();
-    } else {
-      const message = 'User not found';
-      next({
-        message,
-        statusCode: 404,
-        level: 'warn',
-      });
-    }
-  } else {
-    next();
-  }
-};
+const { Model, fields } = require('./model');
 
 exports.id = async (req, res, next) => {
   const { params = {} } = req;
   const { id = '' } = params;
-  const { populate } = filterByNested(params, referencesNames);
 
   try {
-    const data = await Model.findById(id).populate(populate);
+    const data = await Model.findById(id);
     if (!data) {
       const message = `${Model.modelName} not found`;
       next({
@@ -54,17 +28,15 @@ exports.id = async (req, res, next) => {
 };
 
 exports.all = async (req, res, next) => {
-  const { params, query } = req;
+  const { query } = req;
   const { limit, skip, page } = paginationParams(query);
   const { sortBy, direction } = sortParams(query, fields);
-  const { filters, populate } = filterByNested(params, referencesNames);
 
-  const docs = Model.find(filters)
+  const docs = Model.find({})
     .sort(sortTransform(sortBy, direction))
     .skip(skip)
-    .limit(limit)
-    .populate(populate);
-  const all = Model.countDocuments(filters);
+    .limit(limit);
+  const all = Model.countDocuments();
 
   try {
     const response = await Promise.all([docs.exec(), all.exec()]);
@@ -111,10 +83,8 @@ exports.read = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  // const { doc = {}, body = {}, params = {} } = req;
   const { doc = {}, body = {} } = req;
 
-  // Object.assign(doc, body, params);
   Object.assign(doc, body);
 
   try {
