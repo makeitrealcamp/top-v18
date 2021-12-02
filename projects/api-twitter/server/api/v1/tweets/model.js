@@ -5,7 +5,7 @@ const fields = {
     type: String,
     required: true,
     trim: true,
-    maxlength: 255,
+    maxLength: 255,
   },
   location: {
     type: String,
@@ -17,7 +17,15 @@ const fields = {
   },
 };
 
-const tweet = new mongoose.Schema(fields, {
+const references = {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+};
+
+const tweet = new mongoose.Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 
@@ -26,4 +34,5 @@ const model = mongoose.model('tweet', tweet);
 module.exports = {
   Model: model,
   fields,
+  references,
 };
