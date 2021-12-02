@@ -12,6 +12,16 @@ const config = {
     skip: 0,
     page: 1,
   },
+  sort: {
+    sortBy: {
+      fields: ['createdAt', 'updatedAt'],
+      default: 'createdAt',
+    },
+    direction: {
+      default: 'desc',
+      options: ['asc', 'desc'],
+    },
+  },
 };
 
 module.exports = config;
