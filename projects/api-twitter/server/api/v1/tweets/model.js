@@ -25,9 +25,22 @@ const references = {
   },
 };
 
+const virtuals = {
+  comments: {
+    ref: 'comment',
+    localField: '_id',
+    foreignField: 'tweet',
+  },
+};
+
 const tweet = new mongoose.Schema(Object.assign(fields, references), {
   timestamps: true,
+  toJSON: {
+    virtuals: true,
+  },
 });
+
+tweet.virtual('comments', virtuals.comments);
 
 const model = mongoose.model('tweet', tweet);
 
@@ -35,4 +48,5 @@ module.exports = {
   Model: model,
   fields,
   references,
+  virtuals,
 };

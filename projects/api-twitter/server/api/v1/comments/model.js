@@ -22,7 +22,7 @@ const references = {
   },
 };
 
-const comment = new mongoose.Schema(fields, {
+const comment = new mongoose.Schema(Object.assign(fields, references), {
   timestamps: true,
 });
 

@@ -4,10 +4,15 @@ const {
   sortParams,
   sortTransform,
 } = require('../../../utils');
-const { Model, fields, references } = require('./model');
+
+// eslint-disable-next-line object-curly-newline
+const { Model, fields, references, virtuals } = require('./model');
 const { Model: User } = require('../users/model');
 
-const referencesNames = Object.getOwnPropertyNames(references);
+const referencesNames = [
+  ...Object.getOwnPropertyNames(references),
+  ...Object.getOwnPropertyNames(virtuals),
+];
 
 exports.parentId = async (req, res, next) => {
   const { params = {} } = req;
