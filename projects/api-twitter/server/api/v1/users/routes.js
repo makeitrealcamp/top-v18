@@ -5,11 +5,11 @@ const tweetsRouter = require('../tweets/routes');
 const router = express.Router();
 
 /*
- * /api/tweets      GET    - Get All
- * /api/tweets      POST   - Create a new Tweet
- * /api/tweets/:id  GET    - Get a tweet
- * /api/tweets/:id  PUT    - Update a tweet
- * /api/tweets/:id  DELETE - Delete a tweet
+ * /api/users      GET    - Get All
+ * /api/users      POST   - Create a new User
+ * /api/users/:id  GET    - Get a User
+ * /api/users/:id  PUT    - Update a User
+ * /api/users/:id  DELETE - Delete a User
  *
  */
 
