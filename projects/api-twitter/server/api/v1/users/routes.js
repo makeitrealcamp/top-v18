@@ -5,15 +5,19 @@ const tweetsRouter = require('../tweets/routes');
 const router = express.Router();
 
 /*
- * /api/users      GET    - Get All
- * /api/users      POST   - Create a new User
- * /api/users/:id  GET    - Get a User
- * /api/users/:id  PUT    - Update a User
- * /api/users/:id  DELETE - Delete a User
+ * /api/users        GET    - Get All
+ * /api/users/signin POST   - Signin
+ * /api/users/signup POST   - Signup
+ * /api/users/:id    GET    - Get a User
+ * /api/users/:id    PUT    - Update a User
+ * /api/users/:id    DELETE - Delete a User
  *
  */
 
-router.route('/').get(controller.all).post(controller.create);
+router.route('/').get(controller.all);
+
+router.route('/signin').post(controller.signin);
+router.route('/signup').post(controller.signup);
 
 router.param('id', controller.id);
 

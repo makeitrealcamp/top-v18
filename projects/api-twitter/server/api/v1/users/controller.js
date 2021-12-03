@@ -58,7 +58,47 @@ exports.all = async (req, res, next) => {
   }
 };
 
-exports.create = async (req, res, next) => {
+exports.signin = async (req, res, next) => {
+  // Recibir informacion
+  const { body = {} } = req;
+  const { username, password } = body;
+
+  try {
+    // Buscar el usuario (documento) por el username
+    const user = await Model.findOne({
+      username,
+    }).exec();
+    // SI NO = res no existe 401
+    const message = 'Username or password invalid';
+    const statusCode = 401;
+
+    if (!user) {
+      return next({
+        message,
+        statusCode,
+      });
+    }
+
+    // SI = Veriticar Password
+    const verified = await user.verifyPassword(password);
+    if (!verified) {
+      // SI NO = res no existe 401
+      return next({
+        message,
+        statusCode,
+      });
+    }
+
+    // SI = Devolver la informacion del usuario
+    return res.json({
+      data: user,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.signup = async (req, res, next) => {
   const { body = {} } = req;
   const document = new Model(body);
 
