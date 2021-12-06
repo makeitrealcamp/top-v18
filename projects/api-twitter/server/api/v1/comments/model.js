@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const { body } = require('express-validator');
+
+const sanitizers = [body('content').escape()];
 
 const fields = {
   content: {
@@ -32,4 +35,5 @@ module.exports = {
   Model: model,
   fields,
   references,
+  sanitizers,
 };
