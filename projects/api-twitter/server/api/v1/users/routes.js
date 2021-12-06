@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('./controller');
 const tweetsRouter = require('../tweets/routes');
+const { auth } = require('../auth');
 
 const router = express.Router();
 
@@ -19,14 +20,14 @@ router.route('/').get(controller.all);
 router.route('/signin').post(controller.signin);
 router.route('/signup').post(controller.signup);
 
-router.param('id', controller.id);
-
 router
-  .route('/:id')
-  .get(controller.read)
-  .put(controller.update)
-  .patch(controller.update)
-  .delete(controller.delete);
+  .route('/profile')
+  .get(auth, controller.profile)
+  .put(auth, controller.update)
+  .patch(auth, controller.update);
+
+router.param('id', controller.id);
+router.route('/:id').get(auth, controller.read);
 
 router.use('/:user/tweets', tweetsRouter);
 
