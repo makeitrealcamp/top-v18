@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
 
 const { logger, requestId, requestLog } = require('./config/logger');
 const { cors: corsConfig } = require('./config');
 
 const api = require('./api/v1');
+const swaggerDocument = require('./api/v1/swagger.json');
 
 const app = express();
 
@@ -23,6 +25,7 @@ app.use(express.json()); // parse application/json
 // API
 app.use('/api', api);
 app.use('/api/1', api);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch all
 app.use((req, res, next) => {
