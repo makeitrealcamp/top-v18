@@ -14,8 +14,8 @@ export default function Home() {
     try {
       setLoading(true);
       setError('');
-      const response = await getTweets();
-      setData(response);
+      const { data } = await getTweets();
+      setData(data);
     } catch (error) {
       setError(error.message || 'Error');
     } finally {
@@ -34,7 +34,16 @@ export default function Home() {
           {loading && <Spinner animation="border" />}
           {error && <Alert variant="danger">{error}</Alert>}
           {data.map(function (tweet) {
-            return <Tweet key={tweet.id} title={tweet.title} />;
+            return (
+              <Tweet
+                key={tweet.id}
+                content={tweet.content}
+                location={tweet.location}
+                user={tweet.user}
+                createdAt={tweet.createdAt}
+                likes={tweet.likes}
+              />
+            );
           })}
         </Col>
       </Row>
