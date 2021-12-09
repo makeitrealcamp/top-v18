@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
 import Tweet from '../components/Tweet';
 // import useTweets from '../hooks/useTweets';
-import { getTweets } from '../api/tweets';
+import { createTweet, getTweets } from '../api/tweets';
+import NewTweet from '../components/NewTweet';
 
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
@@ -23,6 +24,19 @@ export default function Home() {
     }
   }
 
+  async function onSubmit({ content, location }) {
+    try {
+      setLoading(true);
+      setError('');
+      await createTweet({ content, location });
+      load();
+    } catch (error) {
+      setError(error.message || 'Error');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(function () {
     load();
   }, []);
@@ -31,8 +45,9 @@ export default function Home() {
     <Container className="my-4">
       <Row className="justify-content-center">
         <Col lg={6}>
-          {loading && <Spinner animation="border" />}
           {error && <Alert variant="danger">{error}</Alert>}
+          <NewTweet onSubmit={onSubmit} />
+          {loading && <Spinner animation="border" />}
           {data.map(function (tweet) {
             return (
               <Tweet
