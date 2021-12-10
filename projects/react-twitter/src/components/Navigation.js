@@ -1,11 +1,20 @@
 import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from '../api/users';
 
 import UserContext from '../containers/UserContext';
 
 export default function Navigation() {
-  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+
+  function onSignOut() {
+    setUser({});
+    signOut();
+    navigate('/');
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -20,9 +29,7 @@ export default function Navigation() {
                 <Nav.Link as={Link} to="/profile">
                   {user.username}
                 </Nav.Link>
-                <Nav.Link as={Link} to="/signout">
-                  Sign Out
-                </Nav.Link>
+                <Nav.Link onClick={onSignOut}>Sign Out</Nav.Link>
               </>
             ) : (
               <>

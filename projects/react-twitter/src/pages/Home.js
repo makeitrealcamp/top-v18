@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
 import Tweet from '../components/Tweet';
 // import useTweets from '../hooks/useTweets';
 import { createTweet, getTweets } from '../api/tweets';
 import NewTweet from '../components/NewTweet';
 
+import UserContext from '../containers/UserContext';
+
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
+  const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -46,7 +49,7 @@ export default function Home() {
       <Row className="justify-content-center">
         <Col lg={6}>
           {error && <Alert variant="danger">{error}</Alert>}
-          <NewTweet onSubmit={onSubmit} />
+          {user?.username && <NewTweet onSubmit={onSubmit} />}
           {loading && <Spinner animation="border" />}
           {data.map(function (tweet) {
             return (
