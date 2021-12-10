@@ -1,22 +1,67 @@
-import React from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
+import { signIn } from '../api/users';
+import UserContext from '../containers/UserContext';
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    const { username, password } = event.target.elements;
+
+    try {
+      setLoading(true);
+      setError('');
+      const { data } = await signIn({
+        username: username.value,
+        password: password.value,
+      });
+      setUser({
+        username: data.username,
+        email: data.email,
+        name: data.name,
+        lastname: data.lastname,
+      });
+      navigate('/');
+    } catch (error) {
+      setError(error.message || error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Container className="my-4">
       <Row className="justify-content-center">
         <Col lg={8}>
           <Card className="py-4 px-5">
-            <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+            {error && <Alert variant="warning">{error}</Alert>}
+            <Form onSubmit={onSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" name="username" />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" name="password" />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={loading}>
+                {loading && <Spinner animation="border" variant="light" />}
                 Sign In
               </Button>
             </Form>
