@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import Tweet from '../components/Tweet';
 // import useTweets from '../hooks/useTweets';
 import { createTweet, getTweets } from '../api/tweets';
@@ -7,37 +8,42 @@ import NewTweet from '../components/NewTweet';
 
 import UserContext from '../containers/UserContext';
 
+import { fetchTweets } from '../store/actions/tweets';
+
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
   const { user } = useContext(UserContext);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const data = useSelector((state) => state.tweets.items);
+  const dispatch = useDispatch();
+  // const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState('');
 
   async function load() {
-    try {
-      setLoading(true);
-      setError('');
-      const { data } = await getTweets();
-      setData(data);
-    } catch (error) {
-      setError(error.message || 'Error');
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   setError('');
+    //   const { data } = await getTweets();
+    //   setData(data);
+    // } catch (error) {
+    //   setError(error.message || 'Error');
+    // } finally {
+    //   setLoading(false);
+    // }
+    dispatch(fetchTweets());
   }
 
   async function onSubmit({ content, location }) {
-    try {
-      setLoading(true);
-      setError('');
-      await createTweet({ content, location });
-      load();
-    } catch (error) {
-      setError(error.message || 'Error');
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   setError('');
+    //   await createTweet({ content, location });
+    //   load();
+    // } catch (error) {
+    //   setError(error.message || 'Error');
+    // } finally {
+    //   setLoading(false);
+    // }
   }
 
   useEffect(function () {
@@ -48,9 +54,9 @@ export default function Home() {
     <Container className="my-4">
       <Row className="justify-content-center">
         <Col lg={6}>
-          {error && <Alert variant="danger">{error}</Alert>}
+          {/* {error && <Alert variant="danger">{error}</Alert>} */}
           {user?.username && <NewTweet onSubmit={onSubmit} />}
-          {loading && <Spinner animation="border" />}
+          {/* {loading && <Spinner animation="border" />} */}
           {data.map(function (tweet) {
             return (
               <Tweet

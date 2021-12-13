@@ -7,6 +7,15 @@ export function userReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+    case 'SET_TWEETS': {
+      return {
+        ...state,
+        tweets: {
+          ...state.tweets,
+          items: action.payload,
+        },
+      };
+    }
     default:
       return state;
   }

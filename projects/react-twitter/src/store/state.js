@@ -5,4 +5,9 @@ export const initialState = {
     lastname: '',
     email: '',
   },
+  tweets: {
+    items: [],
+    loading: false,
+    error: '',
+  },
 };
