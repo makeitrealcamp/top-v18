@@ -10,12 +10,13 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { signIn } from '../api/users';
 
-function SignIn({ setUser }) {
+export default function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,11 +32,14 @@ function SignIn({ setUser }) {
         username: username.value,
         password: password.value,
       });
-      setUser({
-        username: data.username,
-        email: data.email,
-        name: data.name,
-        lastname: data.lastname,
+      dispatch({
+        type: 'SET_USER',
+        payload: {
+          username: data.username,
+          email: data.email,
+          name: data.name,
+          lastname: data.lastname,
+        },
       });
       navigate('/');
     } catch (error) {
@@ -71,15 +75,3 @@ function SignIn({ setUser }) {
     </Container>
   );
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (payload) =>
-      dispatch({
-        type: 'SET_USER',
-        payload,
-      }),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(SignIn);
