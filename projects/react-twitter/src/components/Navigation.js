@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { signOut } from '../api/users';
 
-import UserContext from '../containers/UserContext';
-
-export default function Navigation() {
+function Navigation({ user, unsetUser }) {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
 
   function onSignOut() {
-    setUser({});
+    unsetUser();
     signOut();
     navigate('/');
   }
@@ -47,3 +46,21 @@ export default function Navigation() {
     </Navbar>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    unsetUser: () =>
+      dispatch({
+        type: 'SET_USER',
+        payload: {},
+      }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   Button,
@@ -10,13 +10,13 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { signIn } from '../api/users';
-import UserContext from '../containers/UserContext';
 
-export default function SignIn() {
+function SignIn({ setUser }) {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -71,3 +71,15 @@ export default function SignIn() {
     </Container>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (payload) =>
+      dispatch({
+        type: 'SET_USER',
+        payload,
+      }),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
