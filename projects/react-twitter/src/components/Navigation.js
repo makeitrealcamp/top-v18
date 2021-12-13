@@ -1,15 +1,20 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { signOut } from '../api/users';
 
-function Navigation({ user, unsetUser }) {
+export default function Navigation() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   function onSignOut() {
-    unsetUser();
+    dispatch({
+      type: 'SET_USER',
+      payload: {},
+    });
     signOut();
     navigate('/');
   }
@@ -46,21 +51,3 @@ function Navigation({ user, unsetUser }) {
     </Navbar>
   );
 }
-
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    unsetUser: () =>
-      dispatch({
-        type: 'SET_USER',
-        payload: {},
-      }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
