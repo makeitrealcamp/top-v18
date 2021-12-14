@@ -4,9 +4,11 @@ import { Spinner } from 'react-bootstrap';
 
 import Navigation from './components/Navigation';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const SignIn = React.lazy(() => import('./pages/SignIn'));
+const Profile = React.lazy(() => import('./pages/Profile'));
 
 function App() {
   return (
@@ -19,6 +21,16 @@ function App() {
             <React.Suspense fallback={<Spinner animation="border" />}>
               <Home />
             </React.Suspense>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <React.Suspense fallback={<Spinner animation="border" />}>
+                <Profile />
+              </React.Suspense>
+            </ProtectedRoute>
           }
         />
         <Route
