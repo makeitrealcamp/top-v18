@@ -5,11 +5,13 @@ import Tweet from '../components/Tweet';
 import { createTweet, getTweets } from '../api/tweets';
 import NewTweet from '../components/NewTweet';
 
-import UserContext from '../containers/UserContext';
+import Store from '../store/Store';
 
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
-  const { user } = useContext(UserContext);
+  const { state } = useContext(Store);
+  const { user } = state;
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

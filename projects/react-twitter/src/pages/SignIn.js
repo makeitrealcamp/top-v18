@@ -12,11 +12,12 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import { signIn } from '../api/users';
-import UserContext from '../containers/UserContext';
+import Store from '../store/Store';
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { dispatch } = useContext(Store);
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -31,17 +32,20 @@ export default function SignIn() {
         username: username.value,
         password: password.value,
       });
-      setUser({
-        username: data.username,
-        email: data.email,
-        name: data.name,
-        lastname: data.lastname,
+      dispatch({
+        type: 'SET_USER',
+        payload: {
+          username: data.username,
+          email: data.email,
+          name: data.name,
+          lastname: data.lastname,
+        },
       });
+      setLoading(false);
       navigate('/');
     } catch (error) {
-      setError(error.message || error);
-    } finally {
       setLoading(false);
+      setError(error.message || error);
     }
   }
 

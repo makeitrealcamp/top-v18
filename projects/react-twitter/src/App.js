@@ -2,8 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
-import { UserProvider } from './containers/UserContext';
-
 import Navigation from './components/Navigation';
 import NotFound from './pages/NotFound';
 
@@ -12,7 +10,7 @@ const SignIn = React.lazy(() => import('./pages/SignIn'));
 
 function App() {
   return (
-    <UserProvider>
+    <>
       <Navigation />
       <Routes>
         <Route
@@ -33,7 +31,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </UserProvider>
+    </>
   );
 }
 

@@ -3,14 +3,17 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from '../api/users';
 
-import UserContext from '../containers/UserContext';
+import Store from '../store/Store';
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { state, dispatch } = useContext(Store);
+  const { user } = state;
 
   function onSignOut() {
-    setUser({});
+    dispatch({
+      type: 'UNSET_USER',
+    });
     signOut();
     navigate('/');
   }
