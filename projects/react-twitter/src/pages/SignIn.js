@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   Button,
@@ -12,11 +12,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import { signIn } from '../api/users';
-import Store from '../store/Store';
+import { useDispatch } from '../store/Store';
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { dispatch } = useContext(Store);
+  const dispatch = useDispatch();
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

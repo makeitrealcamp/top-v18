@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
 import Tweet from '../components/Tweet';
 // import useTweets from '../hooks/useTweets';
 import { createTweet, getTweets } from '../api/tweets';
 import NewTweet from '../components/NewTweet';
 
-import Store from '../store/Store';
+import { useSelector } from '../store/Store';
 
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
-  const { state } = useContext(Store);
-  const { user } = state;
+  const user = useSelector((state) => state.user);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
