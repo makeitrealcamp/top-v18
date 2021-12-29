@@ -6,10 +6,15 @@ exports.connect = (
   options = {},
 ) => {
   let dburl = '';
-  if (username && password) {
-    dburl = `${protocol}://${username}:${password}@${url}`;
+  const MONGO_DB_URI = process.env.MONGO_DB_URI
+  if (MONGO_DB_URI) {
+    dburl = MONGO_DB_URI;
   } else {
-    dburl = `${protocol}://${url}`;
+    if (username && password) {
+      dburl = `${protocol}://${username}:${password}@${url}`;
+    } else {
+      dburl = `${protocol}://${url}`;
+    }
   }
 
   mongoose.connect(dburl, {
