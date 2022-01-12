@@ -8,9 +8,11 @@ export default function Tweet({
   user = {},
   createdAt = '',
   likes = 0,
+  photo = ''
 }) {
   return (
     <Card className="mb-4">
+       <Card.Img height="100" variant="top" src={photo} />
       <Card.Body>
         <Card.Title>{user.username}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">

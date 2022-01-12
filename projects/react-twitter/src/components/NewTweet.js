@@ -24,13 +24,13 @@ export default function NewTweet({ onSubmit }) {
   const fileHandler = (event) => {
     const file = event.target.files[0];
 
-    const fileExt = file.name.split(".").pop();
+    /*const fileExt = file.name.split(".").pop();
     const verifyFileExt = ['jpg', 'jpeg', 'png'].includes(fileExt.toLowerCase());
     const fileSize = file.size;
 
     if (!verifyFileExt || fileSize > 2000000) {
       return alert("Archivo no valido")
-    }
+    }*/
 
     set_inputs({...inputs, file })
     set_imagePreview(URL.createObjectURL(file))
@@ -53,9 +53,9 @@ export default function NewTweet({ onSubmit }) {
       <div>
         <Form.Group controlId="photo" className="mb-3">
           <Form.Label>Upload your photo</Form.Label>
-          <Form.Control onChange={fileHandler} type="file" />
+          <Form.Control accept=".jpg,.jpeg,.png" onChange={fileHandler} type="file" />
         </Form.Group>
-        <img height="60" src={imagePreview} />
+        <img alt="" height="60" src={imagePreview} />
       </div>
       <Button variant="primary" type="Submit">
         Submit

@@ -22,6 +22,10 @@ const fields = {
     type: Date,
     default: new Date(),
   },
+  photo: {
+    type: String,
+    default: "",
+  },
 };
 
 const references = {

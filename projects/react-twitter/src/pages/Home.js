@@ -38,7 +38,6 @@ export default function Home() {
       form_data.append('location', location);
       form_data.append('file', file);
 
-
       await createTweet(form_data);
       load();
     } catch (error) {
@@ -68,6 +67,7 @@ export default function Home() {
                 user={tweet.user}
                 createdAt={tweet.createdAt}
                 likes={tweet.likes}
+                photo={tweet.photo}
               />
             );
           })}
