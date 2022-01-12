@@ -28,11 +28,17 @@ export default function Home() {
     }
   }
 
-  async function onSubmit({ content, location }) {
+  async function onSubmit({ content, location, file }) {
     try {
       setLoading(true);
       setError('');
-      await createTweet({ content, location });
+      
+      const form_data = new FormData();
+      form_data.append('content', content);
+      form_data.append('location', location);
+      form_data.append('file', file);
+
+      await createTweet(form_data);
       load();
     } catch (error) {
       setError(error.message || 'Error');
@@ -61,6 +67,7 @@ export default function Home() {
                 user={tweet.user}
                 createdAt={tweet.createdAt}
                 likes={tweet.likes}
+                photo={tweet.photo}
               />
             );
           })}

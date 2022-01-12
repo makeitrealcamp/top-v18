@@ -7,6 +7,7 @@ const { cors: corsConfig } = require('./config');
 
 const api = require('./api/v1');
 const swaggerDocument = require('./api/v1/swagger.json');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(
 app.use(requestId);
 app.use(requestLog);
 app.use(express.json()); // parse application/json
+app.use(fileUpload())
 
 // API
 app.use('/api', api);
