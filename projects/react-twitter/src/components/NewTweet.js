@@ -17,20 +17,16 @@ export default function NewTweet({ onSubmit }) {
     });
   }
 
-  React.useEffect(() => {
-    console.log(inputs);
-  }, [inputs])
-
   const fileHandler = (event) => {
     const file = event.target.files[0];
 
-    /*const fileExt = file.name.split(".").pop();
+    const fileExt = file.name.split(".").pop();
     const verifyFileExt = ['jpg', 'jpeg', 'png'].includes(fileExt.toLowerCase());
     const fileSize = file.size;
 
     if (!verifyFileExt || fileSize > 2000000) {
       return alert("Archivo no valido")
-    }*/
+    }
 
     set_inputs({...inputs, file })
     set_imagePreview(URL.createObjectURL(file))
