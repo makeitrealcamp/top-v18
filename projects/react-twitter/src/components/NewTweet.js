@@ -3,8 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 
 export default function NewTweet({ onSubmit }) {
   const [displayForm, setDisplayForm] = useState(false);
-  const [inputs, set_inputs] = useState({});
-  const [imagePreview, set_imagePreview] = useState(null);
+  const [inputs, setInputs] = useState({});
+  const [imagePreview, setImagePreview] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,12 +28,12 @@ export default function NewTweet({ onSubmit }) {
       return alert("Archivo no valido")
     }
 
-    set_inputs({...inputs, file })
-    set_imagePreview(URL.createObjectURL(file))
+    setInputs({...inputs, file })
+    setImagePreview(URL.createObjectURL(file))
   }
 
   const handleInputs = (e) => {
-    set_inputs({...inputs, [e.target.name]: e.target.value})
+    setInputs({...inputs, [e.target.name]: e.target.value})
   }
 
   return displayForm ? (
