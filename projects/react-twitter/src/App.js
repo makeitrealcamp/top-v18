@@ -1,14 +1,15 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
-import Navigation from './components/Navigation';
-import NotFound from './pages/NotFound';
-import ProtectedRoute from './pages/ProtectedRoute';
+import Navigation from "./components/Navigation";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
-const Home = React.lazy(() => import('./pages/Home'));
-const SignIn = React.lazy(() => import('./pages/SignIn'));
-const Profile = React.lazy(() => import('./pages/Profile'));
+const Home = React.lazy(() => import("./pages/Home"));
+const SignIn = React.lazy(() => import("./pages/SignIn"));
+const SignUp = React.lazy(() => import("./pages/SignUp"));
+const Profile = React.lazy(() => import("./pages/Profile"));
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
           element={
             <React.Suspense fallback={<Spinner animation="border" />}>
               <SignIn />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <React.Suspense fallback={<Spinner animation="border" />}>
+              <SignUp />
             </React.Suspense>
           }
         />
