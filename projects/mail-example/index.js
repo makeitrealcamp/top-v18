@@ -1,6 +1,7 @@
 // 1. importar la librería - npm install nodemailer
 const nodemailer = require("nodemailer")
 const sgTransport = require('nodemailer-sendgrid');
+const { welcomeHtmlTemplate, welcomeTextTemplate } = require('./template')
 
 async function run() {
   var options = {
@@ -15,8 +16,8 @@ async function run() {
     from: '"German Escobar" <german.escobar@makeitreal.camp>', // sender address
     to: 'german.escobarc@gmail.com', // list of receivers
     subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    text: welcomeTextTemplate({ name: "Pedro" }), // plain text body
+    html: welcomeHtmlTemplate({ name: "Pedro" }), // html body
   });
 
   // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
