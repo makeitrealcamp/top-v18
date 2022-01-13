@@ -1,14 +1,15 @@
 const {
   paginationParams,
   sortParams,
-  sortTransform,
-} = require('../../../utils');
-const { Model, fields } = require('./model');
-const { signToken } = require('../auth');
+  sortTransform
+} = require("../../../utils");
+const { Model, fields } = require("./model");
+const { signToken } = require("../auth");
+const { mail } = require("../../../utils/email.js");
 
 exports.id = async (req, res, next) => {
   const { params = {} } = req;
-  const { id = '' } = params;
+  const { id = "" } = params;
 
   try {
     const data = await Model.findById(id);
@@ -17,7 +18,7 @@ exports.id = async (req, res, next) => {
       next({
         message,
         statusCode: 404,
-        level: 'warn',
+        level: "warn"
       });
     } else {
       req.doc = data;
@@ -51,8 +52,8 @@ exports.all = async (req, res, next) => {
         skip,
         total,
         page,
-        pages,
-      },
+        pages
+      }
     });
   } catch (error) {
     next(error);
@@ -67,16 +68,16 @@ exports.signin = async (req, res, next) => {
   try {
     // Buscar el usuario (documento) por el username
     const user = await Model.findOne({
-      username,
+      username
     }).exec();
     // SI NO = res no existe 200
-    const message = 'Username or password invalid';
+    const message = "Username or password invalid";
     const statusCode = 200;
 
     if (!user) {
       return next({
         message,
-        statusCode,
+        statusCode
       });
     }
 
@@ -86,19 +87,19 @@ exports.signin = async (req, res, next) => {
       // SI NO = res no existe 200
       return next({
         message,
-        statusCode,
+        statusCode
       });
     }
 
     const token = signToken({
-      id: user.id,
+      id: user.id
     });
     // SI = Devolver la informacion del usuario
     return res.json({
       data: user,
       meta: {
-        token,
-      },
+        token
+      }
     });
   } catch (error) {
     return next(error);
@@ -115,15 +116,16 @@ exports.signup = async (req, res, next) => {
     res.status(status);
 
     const token = signToken({
-      id: data.id,
+      id: data.id
     });
 
     res.json({
       data,
       meta: {
-        token,
-      },
+        token
+      }
     });
+    mail(data);
   } catch (error) {
     next(error);
   }
@@ -133,7 +135,7 @@ exports.read = async (req, res, next) => {
   const { doc = {} } = req;
 
   res.json({
-    data: doc,
+    data: doc
   });
 };
 
@@ -144,7 +146,7 @@ exports.profile = async (req, res, next) => {
   try {
     const data = await Model.findById(id);
     res.json({
-      data,
+      data
     });
   } catch (error) {
     next(error);
@@ -158,7 +160,7 @@ exports.update = async (req, res, next) => {
   try {
     const data = await Model.findByIdAndUpdate(id, body, { new: true });
     res.json({
-      data,
+      data
     });
   } catch (error) {
     next(error);
