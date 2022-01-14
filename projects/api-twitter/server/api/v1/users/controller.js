@@ -5,6 +5,7 @@ const {
 } = require('../../../utils');
 const { Model, fields } = require('./model');
 const { signToken } = require('../auth');
+const sendWelcomeEmail = require("../../../utils/send-email");
 
 exports.id = async (req, res, next) => {
   const { params = {} } = req;
@@ -117,7 +118,7 @@ exports.signup = async (req, res, next) => {
     const token = signToken({
       id: data.id,
     });
-
+    sendWelcomeEmail(data.username, data.email);
     res.json({
       data,
       meta: {

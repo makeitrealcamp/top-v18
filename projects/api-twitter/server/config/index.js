@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const config = {
   port: process.env.PORT || 3000,
@@ -15,12 +15,12 @@ const config = {
   },
   sort: {
     sortBy: {
-      fields: ['createdAt', 'updatedAt'],
-      default: 'createdAt',
+      fields: ["createdAt", "updatedAt"],
+      default: "createdAt",
     },
     direction: {
-      default: 'desc',
-      options: ['asc', 'desc'],
+      default: "desc",
+      options: ["asc", "desc"],
     },
   },
   token: {
@@ -29,6 +29,11 @@ const config = {
   },
   cors: {
     origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
+  },
+  email: {
+    sengridApiKey: process.env.SENDGRID_API_KEY,
+    senderEmail: process.env.SENDER_EMAIL,
+    senderEmailUsername: process.env.SENDER_EMAIL_USERNAME,
   },
 };
 
