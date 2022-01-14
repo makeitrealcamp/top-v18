@@ -2,12 +2,6 @@ require('dotenv').config();
 
 const config = {
   port: process.env.PORT || 3000,
-  database: {
-    protocol: process.env.DATABASE_PROTOCOL,
-    url: process.env.DATABASE_URL,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-  },
   pagination: {
     limit: 10,
     skip: 0,
@@ -30,6 +24,11 @@ const config = {
   cors: {
     origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
   },
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET
+  }
 };
 
 module.exports = config;

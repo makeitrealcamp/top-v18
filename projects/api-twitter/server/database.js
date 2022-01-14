@@ -1,25 +1,9 @@
 const mongoose = require('mongoose');
 const { logger } = require('./config/logger');
 
-exports.connect = (
-  { protocol = 'mongodb', url = '', username, password },
-  options = {},
-) => {
-  let dburl = '';
-  const MONGO_DB_URI = process.env.MONGO_DB_URI
-  if (MONGO_DB_URI) {
-    dburl = MONGO_DB_URI;
-  } else {
-    if (username && password) {
-      dburl = `${protocol}://${username}:${password}@${url}`;
-    } else {
-      dburl = `${protocol}://${url}`;
-    }
-  }
+exports.connect = (options={}) => {
 
-  mongoose.connect(dburl, {
-    ...options,
-  });
+  mongoose.connect(process.env.MONGO_DB_URI || "mongodb://127.0.0.1:27017/test", { useNewUrlParser: true });
 
   mongoose.connection.on('connected', () => {
     logger.info('Database connected');

@@ -25,7 +25,7 @@ const uploadToS3 = async ({file, s3path, maxSize, allowedExts}) => {
         params
     })
 
-    await s3.upload(params, function(err, data) {
+    s3.upload(params, function(err, data) {
         if (err) {
             console.log("Err s3", err);
         }
