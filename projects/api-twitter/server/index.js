@@ -22,7 +22,7 @@ app.use(
 app.use(requestId);
 app.use(requestLog);
 app.use(express.json()); // parse application/json
-app.use(fileUpload())
+app.use(fileUpload({ useTempFiles : true, debug: true }))
 
 // API
 app.use('/api', api);

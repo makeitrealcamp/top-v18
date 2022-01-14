@@ -7,12 +7,7 @@ const config = require('./server/config');
 const { database, port } = config;
 
 // Database
-connect({
-  protocol: database.protocol,
-  url: database.url,
-  username: database.username,
-  password: database.password,
-});
+connect();
 
 // Server
 const server = http.createServer(app);
