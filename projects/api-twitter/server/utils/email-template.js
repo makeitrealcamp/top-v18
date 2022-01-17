@@ -14,7 +14,7 @@ function welcomeTextTemplate(data) {
 }
 
 function recoverPasswordTemplate(data) {
-  // retorna el HTML de recuperar contraseña
+  // TODO: add html for password recovery message
 }
 
 module.exports = {
