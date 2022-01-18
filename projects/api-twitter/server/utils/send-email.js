@@ -24,7 +24,7 @@ async function sendWelcomeEmail(username, email) {
     html: welcomeHtmlTemplate({ name: `${username}` }), // html body
   });
 
-  console.log(`[SUCCESS]: mail message sent to user ${user_id}`);
+  console.log(`[SUCCESS]: mail message sent to user ${username}`);
 }
 
 module.exports = sendWelcomeEmail;
