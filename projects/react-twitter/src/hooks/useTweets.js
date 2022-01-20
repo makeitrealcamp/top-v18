@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
-import { getTweets } from '../api/tweets';
+import { useEffect, useState } from "react";
+import { getTweets } from "../api/tweets";
 
 export default function useTweets() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   async function load() {
     try {
       setLoading(true);
-      setError('');
+      setError("");
       const response = await getTweets();
       setData(response);
-    } catch (error) {
-      setError(error.message || 'Error');
+    } catch (e) {
+      setError(e.message || "Error");
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(function () {
+  useEffect(() => {
     load();
   }, []);
 

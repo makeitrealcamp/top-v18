@@ -1,9 +1,9 @@
-import http from './http';
-import { clearSession, setSession } from './session';
+import http from "./http";
+import { clearSession, setSession } from "./session";
 
 export async function signIn(payload) {
   try {
-    const { data: response } = await http.post('/users/signin', payload);
+    const { data: response } = await http.post("/users/signin", payload);
     const { meta } = response;
     const { token } = meta;
     setSession(token);

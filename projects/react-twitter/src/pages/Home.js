@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
-import Tweet from '../components/Tweet';
+import React, { useEffect, useState } from "react";
+import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
+import Tweet from "../components/Tweet";
 // import useTweets from '../hooks/useTweets';
-import { createTweet, getTweets } from '../api/tweets';
-import NewTweet from '../components/NewTweet';
+import { createTweet, getTweets } from "../api/tweets";
+import NewTweet from "../components/NewTweet";
 
-import { useSelector } from '../store/Store';
+import { useSelector } from "../store/Store";
 
 export default function Home() {
   // const { data = [], error = '', loading = false } = useTweets();
@@ -13,41 +13,41 @@ export default function Home() {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   async function load() {
     try {
       setLoading(true);
-      setError('');
-      const { data } = await getTweets();
-      setData(data);
-    } catch (error) {
-      setError(error.message || 'Error');
+      setError("");
+      const response = await getTweets();
+      setData(response.data);
+    } catch (err) {
+      setError(err.message || "Error");
     } finally {
       setLoading(false);
     }
   }
 
-  async function onSubmit({ content, location, file }) {
+  const onSubmit = async ({ content, location, file }) => {
     try {
       setLoading(true);
-      setError('');
-      
-      const form_data = new FormData();
-      form_data.append('content', content);
-      form_data.append('location', location);
-      form_data.append('file', file);
+      setError("");
 
-      await createTweet(form_data);
+      const formData = new FormData();
+      formData.append("content", content);
+      formData.append("location", location);
+      formData.append("file", file);
+
+      await createTweet(formData);
       load();
-    } catch (error) {
-      setError(error.message || 'Error');
+    } catch (err) {
+      setError(error.message || "Error");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  useEffect(function () {
+  useEffect(() => {
     load();
   }, []);
 
@@ -58,7 +58,7 @@ export default function Home() {
           {error && <Alert variant="danger">{error}</Alert>}
           {user?.username && <NewTweet onSubmit={onSubmit} />}
           {loading && <Spinner animation="border" />}
-          {data.map(function (tweet) {
+          {data.map((tweet) => {
             return (
               <Tweet
                 key={tweet.id}
