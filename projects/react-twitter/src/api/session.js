@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from './const';
+import { TOKEN_KEY } from "./const";
 
 export function setSession(payload) {
   localStorage.setItem(TOKEN_KEY, payload);
