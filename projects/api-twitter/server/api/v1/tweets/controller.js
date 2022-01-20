@@ -100,7 +100,7 @@ exports.create = async (req, res, next) => {
   const { id } = decoded;
 
   let photo = ""
-  if (req.files.file) {
+  if (req.files?.file) {
     photo = await uploadToS3({
       s3path: `tweets/${id}/images/photos`,
       file: req.files.file,
