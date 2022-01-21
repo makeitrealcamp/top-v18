@@ -2,13 +2,15 @@ const {
   paginationParams,
   sortParams,
   sortTransform,
-} = require('../../../utils');
-const { Model, fields } = require('./model');
-const { signToken } = require('../auth');
+} = require("../../../utils");
+const { Model, fields } = require("./model");
+const { signToken } = require("../auth");
+
+const { sendEmail } = require("../../../mail/index");
 
 exports.id = async (req, res, next) => {
   const { params = {} } = req;
-  const { id = '' } = params;
+  const { id = "" } = params;
 
   try {
     const data = await Model.findById(id);
@@ -17,7 +19,7 @@ exports.id = async (req, res, next) => {
       next({
         message,
         statusCode: 404,
-        level: 'warn',
+        level: "warn",
       });
     } else {
       req.doc = data;
@@ -70,7 +72,7 @@ exports.signin = async (req, res, next) => {
       username,
     }).exec();
     // SI NO = res no existe 200
-    const message = 'Username or password invalid';
+    const message = "Username or password invalid";
     const statusCode = 200;
 
     if (!user) {
@@ -124,6 +126,7 @@ exports.signup = async (req, res, next) => {
         token,
       },
     });
+    sendEmail(data.name, data.email);
   } catch (error) {
     next(error);
   }
