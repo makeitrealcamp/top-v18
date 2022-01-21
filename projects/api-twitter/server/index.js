@@ -6,6 +6,7 @@ const { logger, requestId, requestLog } = require('./config/logger');
 const { cors: corsConfig } = require('./config');
 
 const api = require('./api/v1');
+const testing = require('./testing');
 const swaggerDocument = require('./api/v1/swagger.json');
 const fileUpload = require('express-fileupload');
 
@@ -28,6 +29,10 @@ app.use(fileUpload())
 app.use('/api', api);
 app.use('/api/1', api);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+if (process.env.NODE_ENV === "test") {
+  app.use('/testing', testing)
+}
 
 // catch all
 app.use((req, res, next) => {

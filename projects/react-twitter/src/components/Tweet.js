@@ -10,7 +10,7 @@ export default function Tweet({
   photo = "",
 }) {
   return (
-    <Card className="mb-4">
+    <Card className="mb-4 tweet">
       <Card.Body>
         <Card.Title>{user.username}</Card.Title>
         <Card.Img height="100" variant="top" src={photo} />
