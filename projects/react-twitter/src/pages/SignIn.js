@@ -58,13 +58,18 @@ export default function SignIn() {
             <Form onSubmit={onSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" name="username" />
+                <Form.Control type="text" name="username" id="username" />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" />
+                <Form.Control type="password" name="password" id="password" />
               </Form.Group>
-              <Button variant="primary" type="submit" disabled={loading}>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={loading}
+                data-testid="submit-btn"
+              >
                 {loading && <Spinner animation="border" variant="light" />}
                 Sign In
               </Button>

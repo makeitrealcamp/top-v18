@@ -99,23 +99,23 @@ exports.create = async (req, res, next) => {
   const { body = {}, decoded } = req;
   const { id } = decoded;
 
-  let photo = ""
-  if (req.files.file) {
-    photo = await uploadToS3({
-      s3path: `tweets/${id}/images/photos`,
-      file: req.files.file,
-      allowedExts: ["jpg","jpeg", "png"],
-      maxSize: 2000000
-    })
-  }
-
-  const document = new Model({
-    ...body,
-    user: id,
-    photo
-  });
-
   try {
+    let photo = ""
+    if (req.files.file) {
+      photo = await uploadToS3({
+        s3path: `tweets/${id}/images/photos`,
+        file: req.files.file,
+        allowedExts: ["jpg","jpeg", "png"],
+        maxSize: 2000000
+      })
+    }
+
+    const document = new Model({
+      ...body,
+      user: id,
+      photo
+    });
+
     const data = await document.save();
     const status = 201;
     res.status(status);
