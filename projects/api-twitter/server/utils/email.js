@@ -1,14 +1,14 @@
-// 1. importar la librería - npm install nodemailer
+// 1. import the library - npm install nodemailer
 const nodemailer = require("nodemailer");
 const sgTransport = require("nodemailer-sendgrid");
 const { textTemplate, htmlTemplate } = require("./template");
 
 exports.mail = async function run(data) {
   var options = {
-    apiKey: ""
+    apiKey: "",
   };
 
-  // 2. Crear el transport (Fake - Ethereal, Gmail, Sendgrid, MailGun, Postmark)
+  // 2. Create transport (Fake - Ethereal, Gmail, Sendgrid, MailGun, Postmark)
   let transporter = nodemailer.createTransport(sgTransport(options));
 
   // 3. Send Email
@@ -18,8 +18,10 @@ exports.mail = async function run(data) {
       to: "juan.carlos.moreno.banda@gmail.com", // list of receivers
       subject: "Hello ✔", // Subject line
       text: textTemplate(data), // plain text body
-      html: htmlTemplate(data) // html body
+      html: htmlTemplate(data), // html body
     })
-    .then(() => console.log("Correo enviado"))
-    .catch((e) => console.log(e));
+    .then(() =>
+      console.log(`[Success]: Mail message sended to user: ${data.id}`),
+    )
+    .catch((e) => console.error(`Mail send with error: ${e}`));
 };
