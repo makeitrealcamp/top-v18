@@ -6,6 +6,7 @@
   },
   "extends": [
       "react-app",
+      "react-app/jest",
       "plugin:react/recommended",
       "airbnb",
       "plugin:prettier/recommended",
@@ -28,6 +29,11 @@
         "no-unused-expressions": "off",
         "func-names": "off",
         "storybook/default-exports": "off"
+      }
+    }, {
+      "files": ["*.stories.js"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
       }
     }
   ]
