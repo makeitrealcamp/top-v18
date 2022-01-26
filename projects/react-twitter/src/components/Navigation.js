@@ -1,22 +1,22 @@
-import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from '../api/users';
+import React from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "../api/users";
 
-import { useDispatch, useSelector } from '../store/Store';
+import { useDispatch, useSelector } from "../store/Store";
 
 export default function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  function onSignOut() {
+  const onSignOut = () => {
     dispatch({
-      type: 'UNSET_USER',
+      type: "UNSET_USER",
     });
     signOut();
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <Navbar bg="light" expand="lg">

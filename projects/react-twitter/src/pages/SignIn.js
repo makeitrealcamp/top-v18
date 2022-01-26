@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Alert,
   Button,
@@ -8,32 +8,32 @@ import {
   Form,
   Row,
   Spinner,
-} from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-import { signIn } from '../api/users';
-import { useDispatch } from '../store/Store';
+import { signIn } from "../api/users";
+import { useDispatch } from "../store/Store";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function onSubmit(event) {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = event.target.elements;
 
     try {
       setLoading(true);
-      setError('');
+      setError("");
       const { data } = await signIn({
         username: username.value,
         password: password.value,
       });
       dispatch({
-        type: 'SET_USER',
+        type: "SET_USER",
         payload: {
           username: data.username,
           email: data.email,
@@ -42,12 +42,12 @@ export default function SignIn() {
         },
       });
       setLoading(false);
-      navigate('/');
-    } catch (error) {
+      navigate("/");
+    } catch (err) {
       setLoading(false);
-      setError(error.message || error);
+      setError(err.message || RangeError);
     }
-  }
+  };
 
   return (
     <Container className="my-4">
@@ -58,13 +58,18 @@ export default function SignIn() {
             <Form onSubmit={onSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" name="username" />
+                <Form.Control type="text" name="username" id="username" />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" />
+                <Form.Control type="password" name="password" id="password" />
               </Form.Group>
-              <Button variant="primary" type="submit" disabled={loading}>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={loading}
+                data-testid="submit-btn"
+              >
                 {loading && <Spinner animation="border" variant="light" />}
                 Sign In
               </Button>

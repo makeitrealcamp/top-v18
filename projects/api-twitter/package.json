@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon index",
+    "start:test": "cross-env NODE_ENV=test MONGO_DB_URI=mongodb://127.0.0.1:27017/tweets-test nodemon index",
     "start": "cross-env NODE_ENV=production node index",
     "test": "cross-env NODE_ENV=test jest"
   },
