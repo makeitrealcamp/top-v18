@@ -17,7 +17,7 @@ exports.sortParams = (
   fields,
 ) => {
   const safeList = {
-    sortBy: [Object.getOwnPropertyNames(fields), ...sort.sortBy.fields],
+    sortBy: [...Object.getOwnPropertyNames(fields), ...sort.sortBy.fields],
     direction: sort.direction.options,
   };
   return {
