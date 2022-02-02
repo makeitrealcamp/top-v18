@@ -3,8 +3,7 @@ const sgTransport = require("nodemailer-sendgrid");
 
 exports.sendEmail = async (username, email) => {
   var options = {
-    apiKey:
-      "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",
+    apiKey: process.env.API_KEY_SENDGRID,
   };
 
   // Sengrid Secret API Key
@@ -13,7 +12,7 @@ exports.sendEmail = async (username, email) => {
   let transporter = nodemailer.createTransport(sgTransport(options));
 
   let info = await transporter.sendMail({
-    from: "'Michael Sanabria' <maicolsana12@gmail.com>", // sender address
+    from: `'Michael Sanabria' <${process.env.FROM_SENDGRID_EMAIL}>`, // sender address
     to: `${email}`, // list of receivers
     subject: "Correo de prueba", // Subject line
     text: "Prueba Sendgrid NodeJs", // plain text body
