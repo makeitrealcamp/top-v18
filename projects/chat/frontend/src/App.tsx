@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router';
-import './App.css';
-import Navbar from './components/Navbar';
+import React, { useState } from "react";
+import { Route, Routes } from "react-router";
+import "./App.css";
+import Navbar from "./components/Navbar";
 
-const Chat = React.lazy(() => import('./pages/Chat'))
-const Login = React.lazy(() => import('./pages/Login'))
+const Chat = React.lazy(() => import("./pages/Chat"));
+const Login = React.lazy(() => import("./pages/Login"));
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
