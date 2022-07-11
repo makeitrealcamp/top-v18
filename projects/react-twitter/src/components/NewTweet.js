@@ -36,11 +36,11 @@ export default function NewTweet({ onSubmit }) {
 
     setInputs({ ...inputs, file });
     setImagePreview(URL.createObjectURL(file));
-  }
+  };
 
   const handleInputs = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
-  }
+  };
 
   return displayForm ? (
     <Form className="mb-4" onSubmit={handleSubmit}>
