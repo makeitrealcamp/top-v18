@@ -34,12 +34,12 @@ export default function NewTweet({ onSubmit }) {
       setImagePreview(URL.createObjectURL(file));
     }
 
-    setInputs({...inputs, file })
-    setImagePreview(URL.createObjectURL(file))
+    setInputs({ ...inputs, file });
+    setImagePreview(URL.createObjectURL(file));
   }
 
   const handleInputs = (e) => {
-    setInputs({...inputs, [e.target.name]: e.target.value})
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   }
 
   return displayForm ? (
