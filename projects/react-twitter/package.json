@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "yarn run test",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
