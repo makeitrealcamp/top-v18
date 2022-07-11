@@ -1,5 +1,5 @@
 describe('Tweet', () => {
   it('pass', ()=>{
-    expect(true).toBeTruthy()
+    expect(false).toBeTruthy()
   })
 })
